@@ -62,6 +62,7 @@ jobs:
       - helm/install-helm-client:
           version: "v3.8.2"
       # - run: "sed -i '12s/.*/version: 0.0.0/' helm/ph-ee-g2p-sandbox-ci/Chart.yaml"
+      # random
       - run:
           name: build-and-host-ph-ee-g2p-sandbox-ci
           environment:
