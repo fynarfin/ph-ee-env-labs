@@ -18,3 +18,4 @@ LOC2=orchestration/feel/example/*.bpmn
 for f in $LOC2; do
     deploy $f
 done
+
