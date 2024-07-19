@@ -66,3 +66,4 @@ grafana:
         gnetId: 6417
         revision: 1
         datasource: Prometheus
+
