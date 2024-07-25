@@ -30,6 +30,12 @@ ph-ee-g2psandbox:
             paths:
               - path: /
 
+    elasticsearch:
+      volumeClaimTemplate:
+        resources:
+          requests:
+            storage: 5Gi
+
     operations:
       
     ph_ee_connector_ams_mifos:
@@ -124,7 +130,11 @@ ph-ee-g2psandbox:
                   port:
                     number: 80
 
-    # kafka:
+    kafka:
+      volumeClaimTemplate:
+        resources:
+          requests:
+            storage: 2Gi
 
     channel:
       enabled: true
@@ -407,6 +417,10 @@ ph-ee-g2psandbox:
       enabled: true
       replica:
         replicaCount: 0
+      volumeClaimTemplate:
+        resources:
+          requests:
+            storage: 1Gi
 
     vouchers:
       enabled: true
@@ -480,6 +494,11 @@ ph-ee-g2psandbox:
           nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
         hosts:
           - minio.sandbox.fynarfin.io
+      volumeClaimTemplate:
+        resources:
+          requests:
+            storage: 2Gi
+
   account_mapper:
     enabled: true
     image: docker.io/openmf/ph-ee-identity-account-mapper:latest
