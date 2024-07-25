@@ -131,10 +131,9 @@ ph-ee-g2psandbox:
                     number: 80
 
     kafka:
-      volumeClaimTemplate:
-        resources:
-          requests:
-            storage: 2Gi
+      controller:
+        persistence:
+          size: 2Gi
 
     channel:
       enabled: true
@@ -417,10 +416,9 @@ ph-ee-g2psandbox:
       enabled: true
       replica:
         replicaCount: 0
-      volumeClaimTemplate:
-        resources:
-          requests:
-            storage: 1Gi
+      master:
+        persistence:
+          size: "1Gi"
 
     vouchers:
       enabled: true
@@ -494,10 +492,9 @@ ph-ee-g2psandbox:
           nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
         hosts:
           - minio.sandbox.fynarfin.io
-      volumeClaimTemplate:
-        resources:
-          requests:
-            storage: 2Gi
+      persistence:
+        enabled: true
+        size: 2Gi
 
   account_mapper:
     enabled: true
