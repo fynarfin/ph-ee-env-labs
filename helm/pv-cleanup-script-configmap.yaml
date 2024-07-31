@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pv-cleanup-script
+  namespace: default
+data:
+  cleanup-unattached-pvs.sh: |
+    #!/bin/bash
+    # Get all PVs in JSON format
+    pvs=$(kubectl get pv -o json)
+    # Loop through each PV
+    for pv in $(echo "${pvs}" | jq -r '.items[] | @base64'); do
+      _jq() {
+        echo "${pv}" | base64 --decode | jq -r "${1}"
+      }
+      pv_name=$(_jq '.metadata.name')
+      pv_status=$(_jq '.status.phase')
+      # Check if the PV status is 'Released' or 'Failed'
+      if [[ "${pv_status}" == "Released" || "${pv_status}" == "Failed" ]]; then
+        echo "Deleting unattached PV: ${pv_name}"
+        kubectl delete pv "${pv_name}"
+      fi
+    done
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: pv-cleanup-sa
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: pv-cleanup-role
+rules:
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["list", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: pv-cleanup-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: pv-cleanup-role
+subjects:
+  - kind: ServiceAccount
+    name: pv-cleanup-sa
+    namespace: default
