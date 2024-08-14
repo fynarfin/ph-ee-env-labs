@@ -1,0 +1,16 @@
+artifactory:
+  nginx:
+    enabled: true
+    service:
+      type: NodePort
+
+  postgresql:
+    enabled: true
+    persistence:
+      enabled: true
+      size: 5Gi
+
+# this is incorrect, need to correct
+  persistence:
+    enabled: true
+    size: 5Gi
