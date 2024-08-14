@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: pv-cleanup
+  namespace: default
+spec:
+  schedule: "0 0 * * *"  # Runs every day at midnight
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: pv-cleanup-sa
+          containers:
+            - name: pv-cleanup
+              image: bitnami/kubectl:latest
+              command:
+                - /bin/bash
+                - -c
+                - |
+                  # Copy the script to a writable directory
+                  cp /scripts/cleanup-unattached-pvs.sh /tmp/cleanup-unattached-pvs.sh
+                  # Ensure the script is executable
+                  chmod +x /tmp/cleanup-unattached-pvs.sh
+                  # Run the script
+                  /tmp/cleanup-unattached-pvs.sh
+              volumeMounts:
+                - name: scripts
+                  mountPath: /scripts
+                  readOnly: true
+          restartPolicy: OnFailure
+          volumes:
+            - name: scripts
+              configMap:
+                name: pv-cleanup-script
+                items:
+                  - key: cleanup-unattached-pvs.sh
+                    path: cleanup-unattached-pvs.sh
