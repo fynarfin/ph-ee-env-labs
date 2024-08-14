@@ -853,21 +853,21 @@ workflows:
             - Helm
             - slack
             - Ngrok
-      - upgrade-g2psandbox-helm-chart:
-          requires:
-            - build
-            - upgrade-g2psandbox-security-helm-chart
-          context:
-            - AWS
-            - Helm
-            - slack
-      - upgrade-g2psandbox-security-helm-chart:
-          requires:
-            - host-g2-sandbox-security-fynarfin-chart
-          context:
-            - AWS
-            - Helm
-            - slack
+      #- upgrade-g2psandbox-helm-chart:
+      #    requires:
+      #      - build
+      #      - upgrade-g2psandbox-security-helm-chart
+      #    context:
+      #      - AWS
+      #      - Helm
+      #      - slack
+      #- upgrade-g2psandbox-security-helm-chart:
+      #    requires:
+      #      - host-g2-sandbox-security-fynarfin-chart
+      #    context:
+      #      - AWS
+      #      - Helm
+      #      - slack
       - host-dpga-compliance-barebone-chart:
           context:
             - AWS
@@ -899,23 +899,23 @@ workflows:
             - AWS
             - Helm
             - slack
-      - create-secret-paymenthub-demo-namespace:
-          requires:
-            - deploying-bpmns-demo-namespace
-          context:
-            - AWS
-            - Helm
-            - slack
-            - Secrets
-      - create-tls-secret-paymenthub-demo-namespace:
-          requires:
-            - upgrade-g2p-sandbox-fynarfin-demo-chart
-          context:
-            - AWS
-            - Helm
-            - slack
-            - Secrets
-            - TLS
+      #- create-secret-paymenthub-demo-namespace:
+      #    requires:
+      #      - deploying-bpmns-demo-namespace
+      #    context:
+      #      - AWS
+      #      - Helm
+      #      - slack
+      #      - Secrets
+      #- create-tls-secret-paymenthub-demo-namespace:
+      #    requires:
+      #      - upgrade-g2p-sandbox-fynarfin-demo-chart
+      #    context:
+      #      - AWS
+      #      - Helm
+      #      - slack
+      #      - Secrets
+      #      - TLS
       # - install-helm-chart:
       #     cluster-name: sit
       # - delete-helm-release:
