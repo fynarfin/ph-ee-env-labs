@@ -79,7 +79,7 @@ jobs:
         default: "minikube"
         type: string
       service-file-path:
-        default: https://raw.githubusercontent.com/sanchit-0/ph-ee-env-labs/kenya-chart/.circleci/services.txt
+        default: https://raw.githubusercontent.com/fynarfin/ph-ee-env-labs/kenya-chart/.circleci/services.txt
         type: string
       chart-base-url:
         default: https://fynarfin.io/images/fynarfin
