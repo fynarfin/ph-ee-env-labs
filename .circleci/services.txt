@@ -22,3 +22,4 @@ ph-ee-g2psandbox.ph-ee-engine.integration_test.image fynarfin/ph-ee-integration-
 ph-ee-g2psandbox.ph-ee-engine.zeebe_ops.image fynarfin/ph-ee-zeebe-ops
 ph-ee-g2psandbox.ph-ee-engine.post_installation_job.image fynarfin/post-installation-job
 ph-ee-g2psandbox.ph-ee-engine.connector-mtn.image fynarfin/ph-ee-connector-mtn
+ph-ee-g2psandbox.ph-ee-engine.connector_airtel.image fynarfin/ph-ee-connector-airtel
